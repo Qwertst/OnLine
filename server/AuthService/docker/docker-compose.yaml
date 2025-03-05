@@ -1,0 +1,23 @@
+services:
+  auth-service:
+    build:
+      context: .
+    container_name: auth-service
+    depends_on:
+      - auth-db
+    environment:
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://auth-db:5432/online_users_db
+      - SPRING_DATASOURCE_USERNAME=online_users_db
+      - SPRING_DATASOURCE_PASSWORD=online_users_db
+      - SPRING_DATASOURCE_DRIVER_CLASS_NAME=org.postgresql.Driver
+      - SPRING_JPA_HIBERNATE_DDL_AUTO=update
+
+  auth-db:
+    image: 'postgres:13.1-alpine'
+    container_name: auth-db
+    environment:
+      - POSTGRES_USER=online_users_db
+      - POSTGRES_PASSWORD=online_users_db
+      - PGDATA=/var/lib/postgresql/data/pgdata
+    volumes:
+      - ../pgdata:/var/lib/postgresql/data/pgdata

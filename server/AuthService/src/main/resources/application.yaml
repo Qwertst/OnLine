@@ -1,0 +1,23 @@
+spring:
+  datasource:
+    url: jdbc:postgresql://localhost:5432/online
+    username: postgres
+    password: postgres
+    driver-class-name: org.postgresql.Driver
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: false
+    properties:
+      hibernate:
+        format_sql: true
+    database: postgresql
+    database-platform: org.hibernate.dialect.PostgreSQLDialect
+
+application:
+  security:
+    jwt:
+      secret-key: f921fcc63b86917e6c1b9a32e4e61211a2d6133335d51efb963c5abf2e2e2603d738c34c80db4502c463010759cbca0ec2b9e551f9d5559bd975e1b0b36e94072e407d220b901980d09b846cf0bbf7f316469c3daa70b0396f723cd575c28102f7eb0e21575538ba417a96915c6b53507220e03a609d4cc599025c1f16257f8361256ff83bf57e784c09abd33880c0465ac4f4ca0fc1e9b1bde33c5825d4711f6f031e51380516f3a450794232347e64fbeb820c95145eba9f5e68f44fb9ce78d9c1597c0acd3d9db555be4981ec41e2393ae4e41c74f27f1573fb1cfe4b37ae2c9f97ff35a4cafa7f2d4eb956515da59819c721b468a9536bd581c504d2d85b
+      expiration: 604800000
+      refresh-token:
+        expiration: 604800000

@@ -1,0 +1,16 @@
+spring:
+  application:
+    name: DataService
+  cassandra:
+    contact-points: localhost
+    port: 9042
+    keyspace-name: OnLine
+    replication-factor: 1
+    network-strategy: SimpleStrategy
+    schema-action: create_if_not_exists
+    cql-script-path: cql/create_tables.cql
+springdoc:
+  api-docs:
+    path: /api-docs
+  swagger-ui:
+    path: /swagger-ui.html

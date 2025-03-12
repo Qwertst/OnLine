@@ -1,0 +1,295 @@
+openapi: 3.0.0
+info:
+  title: Users Data Service API
+  version: 1.0.0
+  description: API for managing users data
+
+paths:
+  /users/data:
+    get:
+      summary: Get user data
+      parameters:
+        - in: header
+          name: user
+          required: true
+          schema:
+            $ref: '#/components/schemas/UserRequest'
+      responses:
+        '200':
+          description: User data retrieved successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+        '401':
+          description: Unauthorized
+  /users/leaderboard:
+    get:
+      summary: Get leaderboard
+      parameters:
+        - in: header
+          name: user
+          required: true
+          schema:
+            $ref: '#/components/schemas/UserRequest'
+      responses:
+        '200':
+          description: User data retrieved successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Leaderboard'
+        '401':
+          description: Unauthorized
+  /users/friends:
+    get:
+      summary: Get friends list
+      parameters:
+        - in: header
+          name: user
+          required: true
+          schema:
+            $ref: '#/components/schemas/UserRequest'
+      responses:
+        '200':
+          description: Friends list retrieved
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/FriendList'
+        '401':
+          description: Unauthorized
+    patch:
+      summary: Add friend
+      parameters:
+        - in: header
+          name: user
+          required: true
+          schema:
+            $ref: '#/components/schemas/UserRequest'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - friendId
+
+              properties:
+                friendId:
+                  type: string
+                  format: uuid
+      responses:
+        '200':
+          description: Friend added
+        '401':
+          description: Unauthorized
+    delete:
+      summary: Remove friend
+      parameters:
+        - in: header
+          name: user
+          required: true
+          schema:
+            $ref: '#/components/schemas/UserRequest'
+        - in: query
+          name: friendId
+          schema:
+            type: object
+            properties:
+              friendId:
+                type: string
+
+      responses:
+        '200':
+          description: Friend removed
+        '401':
+          description: Unauthorized
+  /users/stats:
+    get:
+      summary: Get stats list
+      parameters:
+        - in: header
+          name: user
+          required: true
+          schema:
+            $ref: '#/components/schemas/UserRequest'
+      responses:
+        '200':
+          description: Stats list retrieved
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Statistics'
+        '401':
+          description: Unauthorized
+    patch:
+      summary: Upload stats
+      parameters:
+        - in: header
+          name: user
+          required: true
+          schema:
+            $ref: '#/components/schemas/UserRequest'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Statistics'
+      responses:
+        '200':
+          description: Friend added
+        '401':
+          description: Unauthorized
+
+  /users/paths:
+    get:
+      summary: Get paths list
+      parameters:
+        - in: header
+          name: user
+          required: true
+          schema:
+            $ref: '#/components/schemas/UserRequest'
+      responses:
+        '200':
+          description: Paths list retrieved
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PathsList'
+        '401':
+          description: Unauthorized
+    patch:
+      summary: Upload path
+      parameters:
+        - in: header
+          name: user
+          required: true
+          schema:
+            $ref: '#/components/schemas/UserRequest'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Path'
+      responses:
+        '200':
+          description: Path added
+        '401':
+          description: Unauthorized
+    delete:
+      summary: Remove path
+      parameters:
+        - in: header
+          name: user
+          required: true
+          schema:
+            $ref: '#/components/schemas/UserRequest'
+        - in: query
+          name: pathId
+          schema:
+            type: object
+            properties:
+              pathId:
+                type: string
+
+      responses:
+        '200':
+          description: Path removed
+        '401':
+          description: Unauthorized
+
+
+components:
+  schemas:
+    User:
+      type: object
+      required:
+        - userId
+        - statistics
+        - friends
+        - paths
+      properties:
+        userId:
+          type: string
+          format: uuid
+        statistics:
+          $ref: '#/components/schemas/Statistics'
+        friends:
+          $ref: '#/components/schemas/FriendList'
+        paths:
+          $ref: '#/components/schemas/PathsList'
+    UserRequest:
+      type: object
+      required:
+        - userId
+        - token
+      properties:
+        userId:
+          type: string
+          format: uuid
+        token:
+          type: string
+          format: jwt
+          example: "Bearer jwt"
+    Statistics:
+      type: array
+      items:
+        $ref: '#/components/schemas/StatisticsEntry'
+    StatisticsEntry:
+      type: object
+      required:
+        - timestamp
+        - name
+        - value
+      properties:
+        timestamp:
+          type: string
+          format: date
+        value:
+          type: number
+        name:
+          type: string
+    FriendList:
+      type: array
+      items:
+        type: string
+        format: uuid
+    Path:
+      type: object
+      required:
+        - pathId
+        - polyline
+      properties:
+        pathId:
+          type: string
+        polyline:
+          type: string
+    PathsList:
+      type: array
+      items:
+        $ref: '#/components/schemas/Path'
+    LeaderboardEntry:
+      type: object
+      required:
+        - friendId
+        - friendName
+        - steps
+        - position
+      properties:
+        friendId:
+          type: string
+        friendName:
+          type: string
+        steps:
+          type: number
+        position:
+          type: number
+    Leaderboard:
+      type: array
+      items:
+        $ref: '#/components/schemas/LeaderboardEntry'

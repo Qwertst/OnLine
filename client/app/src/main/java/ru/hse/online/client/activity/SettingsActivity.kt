@@ -1,4 +1,4 @@
-package ru.hse.online.client
+package ru.hse.online.client.activity
 
 import android.os.Bundle
 import android.util.Log

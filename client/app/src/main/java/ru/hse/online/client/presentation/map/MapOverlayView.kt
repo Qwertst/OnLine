@@ -8,6 +8,12 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.RocketLaunch
+import androidx.compose.material.icons.filled.Route
+import androidx.compose.material.icons.filled.Settings
+import androidx.compose.material.icons.filled.SupervisedUserCircle
+import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -65,10 +71,11 @@ class MapOverlayView(private val currentActivity: ComponentActivity) {
                 }
 
                 navButtonDrawer.Draw(
-                    currentActivity,
-                    SettingsView::class.java,
-                    "Se"
-                )
+                    from = currentActivity,
+                    to = SettingsView::class.java,
+                ) {
+                    Icon(Icons.Filled.Settings, contentDescription = "Settings")
+                }
             }
         }
 
@@ -86,23 +93,27 @@ class MapOverlayView(private val currentActivity: ComponentActivity) {
                 navButtonDrawer.Draw(
                     from = currentActivity,
                     to = FriendListView::class.java,
-                    text = "Fr"
+                    function = {
+                        Icon(Icons.Filled.SupervisedUserCircle, contentDescription = "Settings")
+                    }
                 )
 
                 navButtonDrawer.Draw(
                     from = currentActivity,
                     to = MainActivity::class.java,
-                    text = "Pe",
                     modifier = Modifier
                         .scale(1.3f)
                         .padding(bottom = 40.dp)
-                )
+                ) {
+                    Icon(Icons.Filled.RocketLaunch, contentDescription = "Settings")
+                }
 
                 navButtonDrawer.Draw(
                     currentActivity,
-                    RouteListView::class.java,
-                    "Ro"
-                )
+                    RouteListView::class.java
+                ) {
+                    Icon(Icons.Filled.Route, contentDescription = "Settings")
+                }
             }
         }
     }

@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Friends WebSocket Test</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/stomp.js/2.3.3/stomp.min.js"></script>
+</head>
+
+<body>
+    <div style="padding: 20px;">
+        <!-- Connection Section -->
+        <div>
+            <button id="connectBtn" onclick="connect()">Connect</button>
+            <button id="disconnectBtn" onclick="disconnect()" disabled>Disconnect</button>
+        </div>
+
+        <!-- User Registration -->
+        <div style="margin-top: 20px;">
+            <input type="text" id="username" placeholder="Your username">
+            <button onclick="registerUser()">Register</button>
+        </div>
+
+        <!-- Invite Section -->
+        <div style="margin-top: 20px;">
+            <input type="text" id="friendName" placeholder="Friend's username">
+            <button onclick="sendInvite()">Invite</button>
+        </div>
+
+        <!-- Location Update -->
+        <div style="margin-top: 20px;">
+            <input type="number" id="lat" step="0.000001" placeholder="Latitude">
+            <input type="number" id="lng" step="0.000001" placeholder="Longitude">
+            <button onclick="updateLocation()">Update Location</button>
+        </div>
+
+        <!-- Group Management -->
+        <div style="margin-top: 20px;">
+            <button onclick="joinGroup()">Join Group</button>
+            <button onclick="quitGroup()">Quit Group</button>
+        </div>
+
+        <!-- Status Messages -->
+        <div style="margin-top: 20px;">
+            <h3>Messages:</h3>
+            <div id="messages" style="border: 1px solid #ccc; padding: 10px; height: 200px; overflow-y: auto;"></div>
+        </div>
+    </div>
+
+    <script src=index.js></script>
+</body>
+
+</html>

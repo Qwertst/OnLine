@@ -30,18 +30,18 @@ import org.koin.androidx.compose.koinViewModel
 import ru.hse.online.client.viewModels.GroupViewModel
 
 @Composable
-fun TestScreen() {
+fun TestScreen(groupViewModel: GroupViewModel) {
     Column {
         Text("бу испугался не бойся я хуесос")
 
-        Groups()
+        Groups(groupViewModel)
     }
 
 }
 
 
 @Composable
-fun Groups(viewModel: GroupViewModel = koinViewModel()) {
+fun Groups(viewModel: GroupViewModel) {
     val connectionStatus by viewModel.connectionStatus.collectAsState()
     val groupId by viewModel.groupId.collectAsState()
 

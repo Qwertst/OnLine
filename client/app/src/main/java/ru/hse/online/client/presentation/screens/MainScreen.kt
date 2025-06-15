@@ -62,8 +62,8 @@ import kotlin.math.min
 @Composable
 fun MainScreen(
     statsViewModel: StatsViewModel,
-    settingsViewModel: SettingsViewModel = koinViewModel(),
-    groupViewModel: GroupViewModel = koinViewModel()
+    settingsViewModel: SettingsViewModel,
+    groupViewModel: GroupViewModel
 ) {
     val stepCount by statsViewModel.totalSteps.collectAsStateWithLifecycle(0)
     val calories by statsViewModel.totalCalories.collectAsStateWithLifecycle(0.0)
@@ -403,7 +403,7 @@ fun ProgressCircle(date: LocalDate, progress: Float, steps: Int) {
 @Composable
 private fun InvitesList(groupViewModel: GroupViewModel) {
     val invites by groupViewModel.receivedInvites.collectAsStateWithLifecycle()
-    Log.e("TAG", invites.size.toString())
+    Log.e("TAG1", invites.size.toString())
     if (invites.isEmpty()) {
         return
     }

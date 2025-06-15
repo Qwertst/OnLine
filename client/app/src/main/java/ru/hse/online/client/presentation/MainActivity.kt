@@ -43,6 +43,7 @@ import ru.hse.online.client.viewModels.StatsViewModel
 import ru.hse.online.client.ui.theme.ClientTheme
 import ru.hse.online.client.viewModels.GroupViewModel
 import ru.hse.online.client.viewModels.LocationViewModel
+import ru.hse.online.client.viewModels.SettingsViewModel
 import ru.hse.online.client.viewModels.UserViewModel
 
 sealed class Screen(
@@ -92,6 +93,7 @@ fun NavigationComponent() {
     val statsViewModel: StatsViewModel = koinViewModel()
     val userViewModel: UserViewModel = koinViewModel()
     val groupViewModel: GroupViewModel = koinViewModel()
+    val settingsViewModel: SettingsViewModel = koinViewModel()
 
     Scaffold(
         bottomBar = { BottomNavigationBar(navController) }
@@ -101,10 +103,10 @@ fun NavigationComponent() {
             startDestination = Screen.Main.route,
             modifier = Modifier.padding(padding)
         ) {
-            composable(Screen.Main.route) { MainScreen(statsViewModel) }
+            composable(Screen.Main.route) { MainScreen(statsViewModel, settingsViewModel, groupViewModel) }
             composable(Screen.Map.route) { MapScreen(statsViewModel, locationViewModel, userViewModel) }
             composable(Screen.Menu.route) { MenuScreen(navController) }
-            composable(Screen.Test.route) { TestScreen() }
+            composable(Screen.Test.route) { TestScreen(groupViewModel) }
             composable(
                 route = "friendProfile/{userId}",
                 arguments = listOf(navArgument("userId") { type = NavType.StringType })

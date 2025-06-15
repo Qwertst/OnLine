@@ -176,6 +176,7 @@ class GroupViewModel(
 
     fun receiveInvite(fromWho: String) {
         _receivedInvites.value += fromWho
+        Log.e("TAG", "bebra: ${receivedInvites.value.size}")
     }
 
     fun rejectInvite(fromWho: String) {
